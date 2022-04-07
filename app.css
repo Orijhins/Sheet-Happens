@@ -1,16 +1,49 @@
-::root {
+*. :after, :before {
+    border: 0 solid;
+    box-sizing: border-box;
+}
 
+html {
+    --webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    --moz-tab-size: 4;
+    --o-tab-size: 4;
+    tab-size: 4;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+#hero {
+    background-color: #fafafa;
 }
 
 #alchemy {
-    background-color: darkblue;
+    background-color: #3730a3;
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-#alchemy #bowl {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+
+#alchemy-core {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rolling-flask {
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+}
+
+#alchemy #flask {
     transform: translate(-50%, -50%);
     width: 20rem;
     height: 20rem;
@@ -18,9 +51,14 @@
     opacity: 0.8;
     border-radius: 50%;
     border: 2px solid transparent;
+    transform-origin: bottom center;
+    transition-property: all;
+    transition-timing-function: linear;
+    transition-duration: 150ms;
+    animation: glow-n-roll 5s linear 0s infinite normal;
 }
 
-#alchemy #bowl::before {
+#alchemy #flask::before {
     content: "";
     position: absolute;
     height: 1.5rem;
@@ -33,7 +71,7 @@
     filter: drop-shadow(0 0.5rem 0.5rem #475569);
 }
 
-#alchemy #bowl::after {
+#alchemy #flask::after {
     content: "";
     position: absolute;
     top: 3.5rem;
@@ -43,7 +81,27 @@
     transform: rotate(35deg);
     background: linear-gradient(to top left, #f1f5f9, #f8f1fc);
     border-radius: 20rem;
-    opacity: 0.5;
+    opacity: 0.2;
+}
+
+@keyframes glow-n-roll {
+    0% {
+        filter: hue-rotate(0deg);
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(15deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+        filter: hue-rotate(360deg);
+    }
 }
 
 #alchemy #liquid {
@@ -52,10 +110,16 @@
     left: 0.5rem;
     right: 0.5rem;
     bottom: 0.5rem;
-    background: linear-gradient(to bottom, #22d3ee, #06b6d4);
+    background: linear-gradient(to bottom, #67e8f9, #22d3ee);
+    opacity: 1 !important;
     border-bottom-left-radius: 10rem;
     border-bottom-right-radius: 10rem;
     filter: drop-shadow(0 0 5rem #22d3ee);
+    transform-origin: top center;
+    transition-property: all;
+    transition-timing-function: linear;
+    transition-duration: 150ms;
+    animation: float 5s linear 0s infinite normal;
 }
 
 #alchemy #liquid::before {
@@ -64,18 +128,57 @@
     height: 3rem;
     width: 100%;
     top: -1.5rem;
-    background-image: linear-gradient(to top, #67e8f9, #22d3ee);
+    background-image: radial-gradient(#a5f3fc, #67e8f9);
     border-radius: 50%;
     filter: drop-shadow(0 0 5rem #22d3ee);
 }
 
+@keyframes float {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
 #shadow {
     position: absolute;
     top: calc(50% + 10rem);
     left: 50%;
     height: 2rem;
     width: 20rem;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -60%);
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
+    transition-property: all;
+    transition-timing-function: linear;
+    transition-duration: 150ms;
+    animation: follow 5s linear 0s infinite normal;
+}
+
+@keyframes follow {
+    0% {
+        transform: translate(-50%, -60%);
+    }
+    25% {
+        transform: translate(-40%, -45%);
+    }
+    50% {
+        transform: translate(-50%, -60%);
+    }
+    75% {
+        transform: translate(-60%, -45%);
+    }
+    100% {
+        transform: translate(-50%, -60%);
+    }
 }
